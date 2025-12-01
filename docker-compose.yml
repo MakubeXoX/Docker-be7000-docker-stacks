@@ -6,7 +6,7 @@ services:
     container_name: mediaflow-proxy
     restart: always
     ports:
-      - "8888:8000"
+      - "8888:8888"
     environment:
       - API_PASSWORD=${API_PASSWORD:-changeme123}
       - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
