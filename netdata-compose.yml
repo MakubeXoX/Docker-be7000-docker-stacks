@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  netdata:
+    image: netdata/netdata:latest
+    container_name: netdata
+    restart: always
+    ports:
+      - "19999:19999"
+    cap_add:
+      - SYS_PTRACE
+      - SYS_ADMIN
+    security_opt:
+      - apparmor:unconfined
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /mnt/usb-9b49b8fb/netdata/lib:/var/lib/netdata
+      - /mnt/usb-9b49b8fb/netdata/cache:/var/cache/netdata
+    environment:
+      - DO_NOT_TRACK=1
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
+    driver: bridge
