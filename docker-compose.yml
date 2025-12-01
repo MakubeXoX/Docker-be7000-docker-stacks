@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mediaflow-proxy:
+    image: mhdzumair/mediaflow-proxy:latest
+    container_name: mediaflow-proxy
+    restart: always
+    ports:
+      - "8888:8000"
+    environment:
+      - API_PASSWORD=${API_PASSWORD:-changeme123}
+      - SECRET_KEY=${SECRET_KEY:-your-secret-key-here}
+      - PROXY_URL=${PROXY_URL:-http://192.168.31.1:8888}
+    volumes:
+      - mediaflow-data:/app/data
+    networks:
+      - mediaflow-net
+
+volumes:
+  mediaflow-data:
+    driver: local
+
+networks:
+  mediaflow-net:
+    driver: bridge
